@@ -2,22 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rabbit AR</title>
-  <!-- Подключаем model-viewer -->
+  <title>Rabbit AR with Post-Processing</title>
+  <!-- Подключаем model-viewer и Post-Processing -->
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/postprocessing.js"></script>
 </head>
 <body style="margin:0; overflow:hidden;">
 
-  <!-- Модель кролика -->
+  <!-- Модель кролика с Post-Processing -->
   <model-viewer 
       id="model"
       src="animation3.glb"
+      ios-src="animation3.usdz"
       environment-image="light.hdr"
       camera-controls
       autoplay
       animation-name="Action1"
       shadow-intensity="1"
-      style="width: 100%; height: 100vh;">
+      style="width: 100%; height: 100vh;"
+      postprocessing='{
+        "bloom": {"strength": 0.5, "radius": 0.4},
+        "chromaticAberration": {"offset": 0.005}
+      }'>
   </model-viewer>
 
   <!-- Кнопка для смены анимации -->

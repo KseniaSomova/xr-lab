@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rabbit AR</title>
+  <!-- Подключаем model-viewer правильно -->
+  <script type="module" src="animation3.glb"></script>
+</head>
+<body>
+
+  <!-- Модель кролика -->
+  <model-viewer 
+      id="model"
+      src="model.glb"
+      ios-src="model.usdz"
+      environment-image="hdr.hdr"
+      camera-controls
+      autoplay
+      animation-name="Action1"
+      shadow-intensity="1"
+      style="width: 100%; height: 100vh;">
+  </model-viewer>
+
+  <!-- Кнопка для смены анимации -->
+  <button onclick="switchAnim()" style="position: absolute; top: 20px; left: 20px; z-index: 10;">
+    Сменить анимацию
+  </button>
+
+  <script>
+    async function switchAnim() {
+      const model = document.getElementById('model');
+      model.pause();
+      model.animationName = "Action2";
+      await model.modelLoaded;
+      model.play({crossFadeDuration: 0.5});
+    }
+  </script>
+
+</body>
+</html>

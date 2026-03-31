@@ -1,4 +1,4 @@
-<model-viewer src="animation3.glb" camera-controls poster="poster.webp" shadow-intensity="1" environment-image="light.hdr" ar-modes="scene-viewer webxr quick-look" autoplay animation-name="Action1">
+<model-viewer src="animation3.glb" camera-controls poster="poster.webp" shadow-intensity="1" environment-image="light.hdr" autoplay animation-name="Action1" ios-src="animation3.usdz" style="width: 100%; height: 100vh;">
     <div class="progress-bar hide" slot="progress-bar">
         <div class="update-bar"></div>
     </div>

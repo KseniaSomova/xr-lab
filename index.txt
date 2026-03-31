@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rabbit AR with Effects</title>
+
+  <!-- Основной model-viewer -->
+  <script type="module" src="model-viewer.min.js"></script>
+  <!-- UMD версия Post-Processing -->
+  <script src="model-viewer-effects-umd.min.js"></script>
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #222;
+    }
+    model-viewer {
+      width: 100%;
+      height: 100vh;
+      display: block;
+    }
+    button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Модель с эффектами -->
+  <model-viewer 
+      id="model"
+      src="animation3.glb"
+      environment-image="light.hdr"
+      camera-controls
+      autoplay
+      animation-name="Action1"
+      shadow-intensity="1">
+
+    <!-- Эффекты Post-Processing -->
+    <effect-composer>
+      <bloom-effect strength="0.5" radius="0.4"></bloom-effect>
+      <chromatic-aberration-effect offset="0.005"></chromatic-aberration-effect>
+    </effect-composer>
+
+  </model-viewer>
+
+  <!-- Кнопка переключения анимаций -->
+  <button onclick="switchAnim()">Сменить анимацию</button>
+
+  <script>
+    async function switchAnim() {
+      const model = document.getElementById('model');
+      model.pause();
+      model.animationName = "Action2";
+      await model.modelLoaded;
+      model.play({crossFadeDuration: 0.5});
+    }
+  </script>
+
+</body>
+</html>

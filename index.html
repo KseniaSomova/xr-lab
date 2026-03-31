@@ -2,42 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rabbit AR with Post-Processing</title>
-  <!-- Подключаем model-viewer и Post-Processing -->
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/postprocessing.js"></script>
-</head>
-<body style="margin:0; overflow:hidden;">
+  <title>Rabbit AR with Effects</title>
 
-  <!-- Модель кролика с Post-Processing -->
+  <!-- Подключаем основной model-viewer -->
+  <script type="module" src="model-viewer.min.js"></script>
+  <!-- Подключаем эффекты Post-Processing локально -->
+  <script type="module" src="model-viewer-effects.min.js"></script>
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #222;
+    }
+    model-viewer {
+      width: 100%;
+      height: 100vh;
+      display: block;
+    }
+    button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Модель с эффектами -->
   <model-viewer 
       id="model"
-      src="animation3.glb"
-      ios-src="animation3.usdz"
+      src="model.glb"
+      ios-src="model.usdz"
       environment-image="light.hdr"
       camera-controls
       autoplay
       animation-name="Action1"
-      shadow-intensity="1"
-      style="width: 100%; height: 100vh;"
-      postprocessing='{
-        "bloom": {"strength": 0.5, "radius": 0.4},
-        "chromaticAberration": {"offset": 0.005}
-      }'>
+      shadow-intensity="1">
+
+    <!-- Effect Composer для Post-Processing -->
+    <effect-composer>
+      <bloom-effect strength="0.5" radius="0.4"></bloom-effect>
+      <chromatic-aberration-effect offset="0.005"></chromatic-aberration-effect>
+      <!-- Можно добавить другие эффекты -->
+      <!-- <depth-of-field-effect focus-distance="2" focal-length="20" bokeh-scale="3"></depth-of-field-effect> -->
+    </effect-composer>
+
   </model-viewer>
 
-  <!-- Кнопка для смены анимации -->
-  <button onclick="switchAnim()" style="position: absolute; top: 20px; left: 20px; z-index: 10; padding:10px 15px; font-size:16px;">
-    Сменить анимацию
-  </button>
+  <!-- Кнопка переключения анимаций -->
+  <button onclick="switchAnim()">Сменить анимацию</button>
 
   <script>
     async function switchAnim() {
       const model = document.getElementById('model');
       model.pause();
-      model.animationName = "Action2";      // Вторая анимация
+      model.animationName = "Action2";
       await model.modelLoaded;
-      model.play({crossFadeDuration: 0.5});  // Плавный переход
+      model.play({crossFadeDuration: 0.5});
     }
   </script>
 

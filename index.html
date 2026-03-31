@@ -10,12 +10,12 @@
   <!-- Основной model-viewer -->
   <model-viewer 
       id="model"
-      src="rabbit.glb"
-      ios-src="rabbit.usdz"
+      src="animation3.glb"
+      ios-src="animation3.usdz"
       environment-image="ludwikowice_farmland_4k.hdr"
       camera-controls
       autoplay
-      animation-name="Anim1"
+      animation-name="Action1"
       shadow-intensity="1">
   </model-viewer>
 
@@ -26,7 +26,7 @@
     async function switchAnim() {
       const model = document.getElementById('model');
       model.pause();
-      model.animationName = "Anim2";
+      model.animationName = "Action2";
       await model.modelLoaded;
       model.play({crossFadeDuration: 0.5});
     }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rabbit AR</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+
+  <!-- Основной model-viewer -->
+  <model-viewer 
+      id="model"
+      src="rabbit.glb"
+      ios-src="rabbit.usdz"
+      environment-image="ludwikowice_farmland_4k.hdr"
+      camera-controls
+      autoplay
+      animation-name="Anim1"
+      shadow-intensity="1">
+  </model-viewer>
+
+  <!-- Кнопка для переключения на вторую анимацию -->
+  <button onclick="switchAnim()">Сменить анимацию</button>
+
+  <script>
+    async function switchAnim() {
+      const model = document.getElementById('model');
+      model.pause();
+      model.animationName = "Anim2";
+      await model.modelLoaded;
+      model.play({crossFadeDuration: 0.5});
+    }
+  </script>
+
+</body>
+</html>
